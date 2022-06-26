@@ -4,10 +4,11 @@ const uniqueValidator = require('mongoose-unique-validator');
 const doctorModel = new Schema({
     name: {type: String , require:true},
     contact: {type: String , require:true},
-    docId: {type: String , require:true},
     email: {type: String , require:true, unique:true} ,
     password: {type: String , require:true},
-    dateTime: {type: Date, default: Date.now , require:true},  
+    dateTime: {type: Date, default: Date.now , require:true},
+    nid: {type: String , require:true},
+    specialty: {type: String, require: true},
     verified: {type: Boolean, default: false, required: true}
 });
 
