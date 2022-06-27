@@ -4,6 +4,9 @@ const { body, param } = require("express-validator");
 const doctorLoginHandler = require("../controllers/doctorLoginHandler");
 const doctorSignUp = require("../controllers/doctorSignUp");
 const getDoctor = require("../controllers/getDoctor");
+const updateDoctor = require("../controllers/updateDoctor");
+const checkAuth = require("../middlewares/checkAuth");
+const verifyDoctorId = require("../middlewares/verifyDoctorId");
 
 router.post(
   "/login",
@@ -26,4 +29,7 @@ router.get(
   param("id").trim().escape(),
   getDoctor()
 )
+router.put("/:id", checkAuth, verifyDoctorId, updateDoctor);
+
+router.delete("/:id", checkAuth, verifyDoctorId, )
 module.exports = router;

@@ -1,12 +1,12 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 
+/**
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ */
 module.exports =
-  /**
-   * @param {express.Request} req
-   * @param {express.Response} res
-   * @param {express.NextFunction} next
-   */
   (req, res, next) => {
     try {
       //get the token from authorization header

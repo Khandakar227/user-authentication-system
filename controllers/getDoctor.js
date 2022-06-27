@@ -1,6 +1,4 @@
 const express = require("express");
-const { validationResult } = require("express-validator");
-const bycrypt = require("bcryptjs");
 const Doctor = require("../models/doctor");
 
 /**
@@ -12,6 +10,8 @@ module.exports = async function (req, res, next) {
   try {
     const { id } = req.params;
     const doctor = await Doctor.findById(id);
+
+    if (!doctor) return res.status(200).json({ message: "Doctor not found" });
 
     return res.status(200).json({
       name: doctor.name,
