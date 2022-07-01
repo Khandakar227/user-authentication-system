@@ -3,6 +3,8 @@ const router = express.Router();
 const { body } = require("express-validator");
 const userLoginHandler = require("../controllers/userLoginHandler");
 const userSignUp = require("../controllers/userSignUp");
+const updateUser = require("../controllers/updateUser");
+const verifyId = require("../middlewares/verifyId");
 
 router.post(
   "/login",
@@ -19,5 +21,7 @@ router.post(
   body("nid").trim().notEmpty().withMessage('NID is required').escape(),
   userSignUp
 );
+
+router.put("/:id", checkAuth, verifyId, updateUser);
 
 module.exports = router;

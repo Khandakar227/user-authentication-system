@@ -25,7 +25,7 @@ module.exports = async function userLoginHandler(req, res, next) {
         token: "error",
         expiresIn: "error",
         role: "error",
-        message: "Email is not registered)",
+        message: "Email or password is incorrect)",
       });
     }
     //If user exist check if password was correct
@@ -33,11 +33,12 @@ module.exports = async function userLoginHandler(req, res, next) {
       .compare(password, user.password)
       .then((result) => {
         if (!result)
+          //Increment failed login attempts
           return res.status(401).json({
             token: "error",
             expiresIn: "error",
             role: "error",
-            message: "Incorrect password. Please try again",
+            message: "Email or password is incorrect",
           });
         //If password was correct create a json web token and send it to the  browser
         const token = jwt.sign(

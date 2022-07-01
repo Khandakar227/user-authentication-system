@@ -5,8 +5,9 @@ const doctorLoginHandler = require("../controllers/doctorLoginHandler");
 const doctorSignUp = require("../controllers/doctorSignUp");
 const getDoctor = require("../controllers/getDoctor");
 const updateDoctor = require("../controllers/updateDoctor");
+const deleteDoctor = require("../controllers/deleteDoctor");
 const checkAuth = require("../middlewares/checkAuth");
-const verifyDoctorId = require("../middlewares/verifyDoctorId");
+const verifyId = require("../middlewares/verifyId");
 
 router.post(
   "/login",
@@ -29,7 +30,7 @@ router.get(
   param("id").trim().escape(),
   getDoctor()
 )
-router.put("/:id", checkAuth, verifyDoctorId, updateDoctor);
+router.put("/:id", checkAuth, verifyId, updateDoctor);
 
-router.delete("/:id", checkAuth, verifyDoctorId, )
+router.delete("/:id", checkAuth, verifyId, deleteDoctor);
 module.exports = router;

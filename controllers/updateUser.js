@@ -1,5 +1,5 @@
 const express = require("express");
-const Doctor = require("../models/doctor");
+const User = require("../models/user");
 
 /**
  * @param {express.Request} req
@@ -9,15 +9,15 @@ const Doctor = require("../models/doctor");
 module.exports = async function (req, res, next) {
   try {
     const { id } = req.params;
-    const { name, contact, nid, specialty } = req.body;
-    const updatedDoc = await Doctor.findByIdAndUpdate(id, {
+    const { name, contact, nid } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(id, {
       name,
       contact,
       nid,
-      specialty,
     });
-    res.status(200).json({ message: "Update successful", result: updatedDoc });
+    res.status(200).json({ message: "Update successful", result: updatedUser });
   } catch (error) {
-    res.status(500).json(error);
+      res.status(500).json(error);
   }
-};
+  
+}
