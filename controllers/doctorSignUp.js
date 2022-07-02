@@ -2,10 +2,8 @@ const express = require("express");
 const { validationResult } = require("express-validator");
 const bycrypt = require("bcryptjs");
 const Doctor = require("../models/doctor");
-const {
-  createVerificationToken,
-  sendVerificationMail,
-} = require("../lib/verifyEmail");
+const { createVerificationToken } = require("../lib/index");
+const { sendVerificationMail } = require("../lib/verifyEmail");
 
 /**
  * @param {express.Request} req
@@ -19,12 +17,20 @@ module.exports = async function (req, res, next) {
     if (!errors.isEmpty())
       return res.status(400).json({ errors: errors.array() });
 
-    const { email, name, password, contact, nid, specialty, dateTime } = req.body;
-    const checkEmail = await Doctor.findOne({email});
-    
+    const { email, name, password, contact, nid, specialty, dateTime } =
+      req.body;
+    //Check if the email is already registered
+    const checkEmail = await Doctor.findOne({ email });
     if (checkEmail)
-      return res.status(400).json({message: "Email is already in use"})
-    
+      return res.status(400).json({ message: "Email is already in use" });
+
+    //Send an email verification link
+    const verificationToken = createVerificationToken({
+      _id: doctor._id,
+      email,
+    });
+    await sendVerificationMail(verificationToken, doctor.email);
+
     const hash = await bycrypt.hash(password, 10); //Hash the password
 
     const doctor = new Doctor({
@@ -34,21 +40,15 @@ module.exports = async function (req, res, next) {
       nid,
       dateTime,
       contact,
-      specialty
+      specialty,
     });
     //Add the doctor to the database
     await doctor.save();
-
-    //Send an email verification link
-    const verificationToken = createVerificationToken(doctor._id);
-    await sendVerificationMail(verificationToken, doctor.email);
 
     res
       .status(201)
       .json({ message: "Check your email. A verification link was sent." });
   } catch (error) {
-    res.status(500).json({
-      error,
-    });
+    res.status(500).json(error);
   }
 };
