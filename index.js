@@ -3,7 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/user");
-const verifyrRoutes = require("./routes/verify");
+const verifyRoutes = require("./routes/verify");
+const forgotPasswordRoutes = require("./routes/forgotpassword");
 const { connect } = require("mongoose");
 
 dotenv.config();
@@ -16,7 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use("/api/user", userRoutes);
-app.use("/api/verify", verifyrRoutes);
+app.use("/api/verify", verifyRoutes);
+app.use("/api/forgotpassword", forgotPasswordRoutes);
 
 connect(process.env.MONGODB_URL)
   .then(() => {

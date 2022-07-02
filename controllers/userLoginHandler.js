@@ -33,7 +33,6 @@ module.exports = async function userLoginHandler(req, res, next) {
       .compare(password, user.password)
       .then((result) => {
         if (!result)
-          //Increment failed login attempts
           return res.status(401).json({
             token: "error",
             expiresIn: "error",

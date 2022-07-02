@@ -9,7 +9,6 @@ const userModel = new Schema({
     password: {type: String , require:true},
     role: {type: String , require:true},
     dateTime: {type: Date, default: Date.now , require:true},
-    failedLoginAttempts: {type: Number,default: 0, require: true},
     verified: {type: Boolean, default: false, required: true}
 });
 

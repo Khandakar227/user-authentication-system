@@ -17,6 +17,11 @@ module.exports = async function (req, res, next) {
       return res.status(400).json({ errors: errors.array() });
     
     const { email, name, password, contact, nid, role, dateTime } = req.body;
+    
+    const checkEmail = await User.findOne({email});
+    if (checkEmail)
+      return res.status(400).json({message: "Email is already in use"})
+
     const hash = await bycrypt.hash(password, 10); //Hash the password
 
     const user = new User({
