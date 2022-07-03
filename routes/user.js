@@ -5,6 +5,7 @@ const userLoginHandler = require("../controllers/userLoginHandler");
 const userSignUp = require("../controllers/userSignUp");
 const updateUser = require("../controllers/updateUser");
 const verifyId = require("../middlewares/verifyId");
+const checkAuth = require("../middlewares/checkAuth");
 
 router.post(
   "/login",

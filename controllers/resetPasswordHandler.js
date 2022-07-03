@@ -1,4 +1,5 @@
 const express = require("express");
+const { verify } = require("jsonwebtoken");
 
   /**
    * @param {express.Request} req
@@ -7,7 +8,10 @@ const express = require("express");
    */
   async function resetPassword(req, res, next) {
     if (req.method === "GET") {
-      res.status(200).send(passwordResetInput());
+      const {token} = req.params;
+      // const payload = verify(token, process.env.EMAIL_SECRET);
+     
+      res.status(200).send(passwordResetInput(token));
     } else if (req.method === "POST") {
         return 
     }
