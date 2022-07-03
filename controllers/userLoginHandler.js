@@ -9,7 +9,7 @@ const User = require("../models/user");
  * @param {express.Response} res
  * @param {express.NextFunction} next
  */
-module.exports = async function userLoginHandler(req, res, next) {
+async function userLoginHandler(req, res, next) {
   try {
     //request body Validated result.
     const errors = validationResult(req);
@@ -63,3 +63,5 @@ module.exports = async function userLoginHandler(req, res, next) {
     });
   }
 };
+
+module.exports = userLoginHandler;

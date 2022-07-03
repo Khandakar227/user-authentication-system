@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/user");
 const verifyRoutes = require("./routes/verify");
 const forgotPasswordRoutes = require("./routes/forgotpassword");
+const resetPasswordRoutes = require("./routes/resetpassword");
 const { connect } = require("mongoose");
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/api/user", userRoutes);
 app.use("/api/verify", verifyRoutes);
 app.use("/api/forgotpassword", forgotPasswordRoutes);
+app.use("/api/resetpassword", resetPasswordRoutes);
 
 connect(process.env.MONGODB_URL)
   .then(() => {

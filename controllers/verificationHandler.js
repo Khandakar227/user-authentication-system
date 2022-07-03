@@ -2,7 +2,6 @@ const express = require("express");
 const { verify } = require("jsonwebtoken");
 const User = require("../models/user");
 
-module.exports =
   /**
    * @param {express.Request} req
    * @param {express.Response} res
@@ -41,3 +40,6 @@ module.exports =
       return res.status(500).send(error);
     }
   };
+
+
+module.exports = verificationHandler;
