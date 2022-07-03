@@ -15,7 +15,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", userRoutes);
 app.use("/api/verify", verifyRoutes);
