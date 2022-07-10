@@ -25,8 +25,10 @@ app.use("/api/verify", verifyRoutes);
 app.use("/api/forgotpassword", forgotPasswordRoutes);
 app.use("/api/resetpassword", resetPasswordRoutes);
 
-
-connect(process.env.MONGODB_URL)
+connect(process.env.MONGODB_URL, {
+  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+  reconnectInterval: 100, // Reconnect every 100ms
+})
   .then(() => {
     console.log("connected to database!");
   })
