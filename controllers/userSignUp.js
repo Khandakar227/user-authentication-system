@@ -1,3 +1,4 @@
+//@ts-check
 const express = require("express");
 const { validationResult } = require("express-validator");
 const bycrypt = require("bcryptjs");

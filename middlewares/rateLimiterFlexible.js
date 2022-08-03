@@ -1,3 +1,4 @@
+//@ts-check
 const { RateLimiterMongo } = require("rate-limiter-flexible");
 const {connection} = require("mongoose");
 

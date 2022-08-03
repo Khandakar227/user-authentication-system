@@ -9,16 +9,19 @@ const User = require("../models/user");
  */
 module.exports = async function (req, res, next) {
   try {
-    //Get doctor's id
+    //Get user's id
     const { id } = req.params;
     //Password is required to delete each account
     const { password } = req.body;
-    //Find and match doctor's passwoord
+    
+    //Find and match user's passwoord
     const user = await User.findById(id);
-    const result = compare(password, doctor.password);
-
+    //Check if the user exist
+    if (!user) res.status(403).json({ message: "Invalid user or password." });
+    
+    const result = compare(password, user.password);
     if (!result)
-      return res.status(403).json({ message: "Incorrect password." });
+      return res.status(403).json({ message: "Invalid user or password." });
     //If the password was correct delete the account
     user.delete();
 

@@ -1,4 +1,6 @@
+//@ts-check
 const express = require("express");
+const { validationResult } = require("express-validator");
 const { createVerificationToken, sendPasswordResetLink } = require("../lib");
 const User = require("../models/user");
 
@@ -9,7 +11,9 @@ const User = require("../models/user");
  */
 async function forgotPassword(req, res, next) {
   try {
+  	//Validation result from express-validator
     const errors = validationResult(req);
+    
     if (!errors.isEmpty())
       return res.status(400).json({ errors: errors.array() });
 

@@ -33,8 +33,9 @@ async function resetPassword(req, res, next) {
         const payload = decoded;
         const { password } = req.body;
         const hashPassword = await hash(password, 10);
+
         if (payload && payload._id) {
-          await User.findByIdAndUpdate(_id, {
+          await User.findByIdAndUpdate(payload._id, {
             password: hashPassword,
           });
           res.status(201).json({ message: "Password changed successfully." });
